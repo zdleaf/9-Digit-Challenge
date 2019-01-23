@@ -18,8 +18,19 @@ def CheckRule1(workingArray, workingPosition):
 		return True
 
 # prototype functions
-def CheckRule2():
-	return True
+def CheckRule2(workingArray):
+	# for each x in workingArray, keep a count of how many times the value appears, it it appears twice then rule 2 has failed
+	countOfValues = np.zeros(shape=[9], dtype=int)
+	for x in workingArray:
+		if (x != 0):
+			countOfValues[x - 1] += 1
+
+	print("countOfValues: ", countOfValues)
+	for y in countOfValues:
+		if (y >= 2):
+			return False
+		else:
+			return True
 
 def CheckRule3():
 	return True
@@ -27,7 +38,15 @@ def CheckRule3():
 def CheckNextNumbers(workingArray, workingPosition):
 	
 	# Check we satisfied each rule
-	if (CheckRule1(workingArray, workingPosition) == False or CheckRule2() == False or CheckRule3() == False):
+	resultRule1 = CheckRule1(workingArray, workingPosition)
+	resultRule2 = CheckRule2(workingArray)
+	resultRule3 = CheckRule3()
+
+	print("check Rule 1: ", resultRule1)
+	print("check Rule 2: ", resultRule2)
+	print("check Rule 3: ", resultRule3)
+
+	if (resultRule1 == False or resultRule2 == False or resultRule3 == False):
 		return False
 	else:
 		return True
@@ -35,7 +54,8 @@ def CheckNextNumbers(workingArray, workingPosition):
 evalNextNumbers = CheckNextNumbers(workingArray, workingPosition)
 
 print("working array: ", workingArray)
-print("evaluation: ", evalNextNumbers)
+
+print("overall evaluation: ", evalNextNumbers)
 
 # rule 1: Each digit cannot equal it's position plus or minus 1
 # note: position 1 is first position aka, indexed by 0 in array_rule1, therefore for clarity we refer to position and possibilities as xp and yp for comparison against the rule
