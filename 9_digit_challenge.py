@@ -7,9 +7,10 @@
 import numpy as np
 
 workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
-workingPosition = 0 # keep track of our position in the workingArray with this int
+workingPosition = 1 # keep track of our position in the workingArray with this int
 
-workingArray[workingPosition] = 3 # set initial number
+workingArray[0] = 3 # set initial number
+workingArray[workingPosition] = 5 # test
 
 def CheckRule1(workingArray, workingPosition):
 	if (workingArray[workingPosition] == workingPosition + 1 or workingArray[workingPosition] == workingPosition + 2 or workingArray[workingPosition] == workingPosition):
@@ -17,9 +18,9 @@ def CheckRule1(workingArray, workingPosition):
 	else:
 		return True
 
-# prototype functions
 def CheckRule2(workingArray):
 	# for each x in workingArray, keep a count of how many times the value appears, it it appears twice then rule 2 has failed
+	# alternative method, take workingPos as argument and compare rest of elements to workingPos value
 	countOfValues = np.zeros(shape=[9], dtype=int)
 	for x in workingArray:
 		if (x != 0):
@@ -32,15 +33,26 @@ def CheckRule2(workingArray):
 		else:
 			return True
 
-def CheckRule3():
-	return True
+def CheckRule3(workingArray, workingPosition):
+	# with workingPos, check pos-1 for difference of more than 2. value of pos+1 will not be filled yet so no check required
+	if (workingPosition != 0):
+		value1 = workingArray[workingPosition - 1]
+		value2 = workingArray[workingPosition]
+		difference = np.sqrt((value1-value2)*(value1-value2))
+		print("difference: ", difference)
+		if (difference > 2):
+			return True
+		else:
+			return False
+	else:
+		return True
 
 def CheckNextNumbers(workingArray, workingPosition):
 	
 	# Check we satisfied each rule
 	resultRule1 = CheckRule1(workingArray, workingPosition)
 	resultRule2 = CheckRule2(workingArray)
-	resultRule3 = CheckRule3()
+	resultRule3 = CheckRule3(workingArray, workingPosition)
 
 	print("check Rule 1: ", resultRule1)
 	print("check Rule 2: ", resultRule2)
@@ -69,5 +81,5 @@ for x in range(0, 9): 	# position 1-9 (indexed as 0-8)
 		if yp != xp and yp != xp+1 and yp != xp-1:	# if possibility is possible as per rule 1
 			arrayRule1[x,y] = yp
 
-print(arrayRule1)
+# print(arrayRule1)
 
