@@ -1,16 +1,16 @@
 # 9 digit challenge
 # Find all 9 digit numbers that satisfy the following rules
-# rule 1: Each digit cannot equal it's position plus or minus 1
+# rule 1: Each digit cannot equal it's position plus or minus 1 (array[0] is position 1)
 # rule 2: Each digit cannot be repeated i.e. must contain 1-9
 # rule 3: Digits next to each other must have a difference of >= 2 eg. 1 and 4, not 1 and 3
 
 import numpy as np
 
 workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
-workingPosition = 1 # keep track of our position in the workingArray with this int
+workingPosition = 0 # keep track of our position in the workingArray with this int
 
-workingArray[0] = 3 # set initial number
-workingArray[workingPosition] = 5 # test
+workingArray[0] = 1 # set initial number
+# workingArray[workingPosition] = 6 # test
 
 def CheckRule1(workingArray, workingPosition):
 	if (workingArray[workingPosition] == workingPosition + 1 or workingArray[workingPosition] == workingPosition + 2 or workingArray[workingPosition] == workingPosition):
@@ -20,7 +20,7 @@ def CheckRule1(workingArray, workingPosition):
 
 def CheckRule2(workingArray):
 	# for each x in workingArray, keep a count of how many times the value appears, it it appears twice then rule 2 has failed
-	# alternative method, take workingPos as argument and compare rest of elements to workingPos value
+	# alternative method, take workingPos as argument and compare rest of elements to workingPos value e.g. until workingPos = 0, keep workingPos - 1 and compare
 	countOfValues = np.zeros(shape=[9], dtype=int)
 	for x in workingArray:
 		if (x != 0):
@@ -38,7 +38,7 @@ def CheckRule3(workingArray, workingPosition):
 	if (workingPosition != 0):
 		value1 = workingArray[workingPosition - 1]
 		value2 = workingArray[workingPosition]
-		difference = np.sqrt((value1-value2)*(value1-value2))
+		difference = np.sqrt((value1-value2)*(value1-value2)) # square and sqrt to always provide positive difference
 		print("difference: ", difference)
 		if (difference > 2):
 			return True
@@ -47,7 +47,7 @@ def CheckRule3(workingArray, workingPosition):
 	else:
 		return True
 
-def CheckNextNumbers(workingArray, workingPosition):
+def CheckRules(workingArray, workingPosition):
 	
 	# Check we satisfied each rule
 	resultRule1 = CheckRule1(workingArray, workingPosition)
@@ -63,11 +63,20 @@ def CheckNextNumbers(workingArray, workingPosition):
 	else:
 		return True
 
-evalNextNumbers = CheckNextNumbers(workingArray, workingPosition)
+y = 0
+temporaryPotentials = []
+for x in range(1, 10):
+	workingArray[workingPosition] = x
+	if (CheckRules(workingArray, workingPosition) == True): # if x satisfies rules
+		temporaryPotentials.append(x) # add to an array
+		y += 1 # move the next position in the array
+	print("working array: ", workingArray)
+	print("----------")
+# evalNextNumbers = CheckRules(workingArray, workingPosition)
 
 print("working array: ", workingArray)
-
-print("overall evaluation: ", evalNextNumbers)
+print("temp potentials: ", temporaryPotentials)
+# print("overall evaluation: ", evalNextNumbers)
 
 # rule 1: Each digit cannot equal it's position plus or minus 1
 # note: position 1 is first position aka, indexed by 0 in array_rule1, therefore for clarity we refer to position and possibilities as xp and yp for comparison against the rule
