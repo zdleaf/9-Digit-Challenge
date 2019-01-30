@@ -6,10 +6,7 @@
 
 import numpy as np
 
-workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
-workingPosition = 0 # keep track of our position in the workingArray with this int
-
-workingArray[0] = 1 # set initial number
+# workingArray[0] = 1 # set initial number
 # workingArray[workingPosition] = 6 # test
 
 def CheckRule1(workingArray, workingPosition):
@@ -63,20 +60,46 @@ def CheckRules(workingArray, workingPosition):
 	else:
 		return True
 
-y = 0
-temporaryPotentials = []
-for x in range(1, 10):
-	workingArray[workingPosition] = x
-	if (CheckRules(workingArray, workingPosition) == True): # if x satisfies rules
-		temporaryPotentials.append(x) # add to an array
-		y += 1 # move the next position in the array
-	print("working array: ", workingArray)
-	print("----------")
-# evalNextNumbers = CheckRules(workingArray, workingPosition)
+## function calculate potentials, returns array of potentials
+def CalculatePotentials(workingArray, workingPosition): # optionsArray, calcPosition
+	y = 0
+	temporaryPotentials = []
+	for x in range(1, 10):
+		workingArray[workingPosition] = x
+		if (CheckRules(workingArray, workingPosition) == True): # if x satisfies rules
+			temporaryPotentials.append(x) # add to an array
+			y += 1 # move the next position in the array
+		print("workingArray: ", workingArray)
+		print("----------")
+		# print("temp potentials: ", temporaryPotentials)
+	return temporaryPotentials
 
+# first round, calculating first position
+calcPosition = 0 # what position are we generating? need to keep track of this for general
+workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
+workingPosition = 0 # keep track of our position in the workingArray with this int
+potentials = []
+potentials = CalculatePotentials(workingArray, workingPosition)
+print("potentials: ", potentials)
+
+workingArray[calcPosition] = potentials[calcPosition] # in position 0 - 3 in workingArray[0]
 print("working array: ", workingArray)
-print("temp potentials: ", temporaryPotentials)
-# print("overall evaluation: ", evalNextNumbers)
+workingPosition = 1
+potentials = CalculatePotentials(workingArray, workingPosition)
+print("potentials: ", potentials)
+#for x in potentials
+#	CalculatePotentials(x)
+
+print("----------")
+print("calcPosition: ", calcPosition)
+# print("working array: ", workingArray)
+# print("temp potentials: ", temporaryPotentials)
+
+
+
+
+
+
 
 # rule 1: Each digit cannot equal it's position plus or minus 1
 # note: position 1 is first position aka, indexed by 0 in array_rule1, therefore for clarity we refer to position and possibilities as xp and yp for comparison against the rule
