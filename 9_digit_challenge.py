@@ -27,11 +27,10 @@ def CheckRule2(workingArray):
 			countOfValues[x - 1] += 1
 
 	logging.debug("countOfValues: %r", countOfValues)
-	for y in countOfValues:
-		if (y >= 2):
-			return False
-		else:
-			return True
+	if any(y >= 2 for y in countOfValues):
+		return False
+	else:
+		return True
 
 def CheckRule3(workingArray, workingPosition):
 	# with workingPos, check pos-1 for difference of more than 2. value of pos+1 will not be filled yet so no check required
@@ -74,7 +73,6 @@ def CalculatePotentials(workingArray, workingPosition): # optionsArray, calcPosi
 			y += 1 # move the next position in the array
 		print("workingArray: ", workingArray)
 		print("----------")
-		# print("temp potentials: ", temporaryPotentials)
 	return temporaryPotentials
 
 # first round, calculating first position
