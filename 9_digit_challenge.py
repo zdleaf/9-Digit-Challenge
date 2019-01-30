@@ -81,15 +81,16 @@ workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to us
 workingPosition = 0 # keep track of our position in the workingArray with this int
 potentials = []
 potentials = CalculatePotentials(workingArray, workingPosition)
-print("potentials: ", potentials)
-
-workingArray[calcPosition] = potentials[calcPosition] # in position 0 - 3 in workingArray[0]
-print("working array: ", workingArray)
+print("potentials 1: ", potentials)
+print("----------")
+workingArray[calcPosition] = potentials[0] # set position 0 to first potential
 workingPosition = 1
 potentials = CalculatePotentials(workingArray, workingPosition)
-print("potentials: ", potentials)
-#for x in potentials
-#	CalculatePotentials(x)
+print("potentials 2: ", potentials)
+
+# need to loop all and tree this off 
+# for x in potentials
+# CalculatePotentials(x)
 
 print("----------")
 print("calcPosition: ", calcPosition)
