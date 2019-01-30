@@ -5,6 +5,9 @@
 # rule 3: Digits next to each other must have a difference of >= 2 eg. 1 and 4, not 1 and 3
 
 import numpy as np
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s') #
 
 # workingArray[0] = 1 # set initial number
 # workingArray[workingPosition] = 6 # test
@@ -23,7 +26,7 @@ def CheckRule2(workingArray):
 		if (x != 0):
 			countOfValues[x - 1] += 1
 
-	print("countOfValues: ", countOfValues)
+	logging.debug("countOfValues: %r", countOfValues)
 	for y in countOfValues:
 		if (y >= 2):
 			return False
@@ -36,7 +39,7 @@ def CheckRule3(workingArray, workingPosition):
 		value1 = workingArray[workingPosition - 1]
 		value2 = workingArray[workingPosition]
 		difference = np.sqrt((value1-value2)*(value1-value2)) # square and sqrt to always provide positive difference
-		print("difference: ", difference)
+		logging.debug("difference: %r", difference)
 		if (difference > 2):
 			return True
 		else:
@@ -51,9 +54,9 @@ def CheckRules(workingArray, workingPosition):
 	resultRule2 = CheckRule2(workingArray)
 	resultRule3 = CheckRule3(workingArray, workingPosition)
 
-	print("check Rule 1: ", resultRule1)
-	print("check Rule 2: ", resultRule2)
-	print("check Rule 3: ", resultRule3)
+	logging.debug("check Rule 1: %r", resultRule1)
+	logging.debug("check Rule 2: %r", resultRule2)
+	logging.debug("check Rule 3: %r", resultRule3)
 
 	if (resultRule1 == False or resultRule2 == False or resultRule3 == False):
 		return False
