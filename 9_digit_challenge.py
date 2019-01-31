@@ -7,7 +7,7 @@
 import numpy as np
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s') #
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') #
 
 # workingArray[0] = 1 # set initial number
 # workingArray[workingPosition] = 6 # test
@@ -71,22 +71,27 @@ def CalculatePotentials(workingArray, workingPosition): # optionsArray, calcPosi
 		if (CheckRules(workingArray, workingPosition) == True): # if x satisfies rules
 			temporaryPotentials.append(x) # add to an array
 			y += 1 # move the next position in the array
-		print("workingArray: ", workingArray)
-		print("----------")
+		logging.debug("workingArray: %r", workingArray)
+		# print("----------")
 	return temporaryPotentials
 
 # first round, calculating first position
 calcPosition = 0 # what position are we generating? need to keep track of this for general
 workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
 workingPosition = 0 # keep track of our position in the workingArray with this int
+
 potentials = []
 potentials = CalculatePotentials(workingArray, workingPosition)
 print("potentials 1: ", potentials)
 print("----------")
-workingArray[calcPosition] = potentials[0] # set position 0 to first potential
-workingPosition = 1
-potentials = CalculatePotentials(workingArray, workingPosition)
-print("potentials 2: ", potentials)
+
+# second position
+for x in potentials:
+	workingArray[calcPosition] = x # set position 0 to first potential
+	workingPosition = 1
+	potentials = CalculatePotentials(workingArray, workingPosition)
+	print("calculating for {}, potentials: {}".format(x, potentials))
+	#print("potentials 2: ", potentials)
 
 # need to loop all and tree this off 
 # for x in potentials
