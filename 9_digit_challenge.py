@@ -72,17 +72,22 @@ calcPosition = 0 # what position are we generating? need to keep track of this f
 workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
 workingPosition = 0 # keep track of our position in the workingArray with this int
 
-potentials = []
+#nested list
+
 potentials = CalculatePotentials(workingArray, workingPosition)
 print("potentials 1: ", potentials)
 print("----------")
 
 # second position
+nestedList = []
 for x in potentials:
 	workingArray[calcPosition] = x # set position 0 to first potential
 	workingPosition = 1
 	potentials = CalculatePotentials(workingArray, workingPosition)
-	print("calculating for {}, potentials: {}".format(x, potentials))
+	nestedList.append(potentials)
+	# print("calculating for {}, potentials: {}".format(x, potentials))
+	
+print("nestedList potentials 2: ", nestedList)
 
 # need to loop all and tree this off - implement a node tree?
 # for x in potentials
@@ -91,5 +96,5 @@ for x in potentials:
 print("----------")
 print("calcPosition: ", calcPosition)
 # print("working array: ", workingArray)
-print("potentials: ", potentials)
+print("nestedList[2][0] ", nestedList[2][0])
 
