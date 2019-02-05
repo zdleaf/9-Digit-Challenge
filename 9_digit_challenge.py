@@ -7,10 +7,7 @@
 import numpy as np
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s') #
-
-# workingArray[0] = 1 # set initial number
-# workingArray[workingPosition] = 6 # test
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def CheckRule1(workingArray, workingPosition):
 	if (workingArray[workingPosition] == workingPosition + 1 or workingArray[workingPosition] == workingPosition + 2 or workingArray[workingPosition] == workingPosition):
@@ -47,7 +44,6 @@ def CheckRule3(workingArray, workingPosition):
 		return True
 
 def CheckRules(workingArray, workingPosition):
-	
 	# Check we satisfied each rule
 	resultRule1 = CheckRule1(workingArray, workingPosition)
 	resultRule2 = CheckRule2(workingArray)
@@ -62,18 +58,14 @@ def CheckRules(workingArray, workingPosition):
 	else:
 		return True
 
-## function calculate potentials, returns array of potentials
-def CalculatePotentials(workingArray, workingPosition): # optionsArray, calcPosition
-	y = 0
-	temporaryPotentials = []
+def CalculatePotentials(workingArray, workingPosition):
+	potentialsArray = []
 	for x in range(1, 10):
 		workingArray[workingPosition] = x
-		if (CheckRules(workingArray, workingPosition) == True): # if x satisfies rules
-			temporaryPotentials.append(x) # add to an array
-			y += 1 # move the next position in the array
+		if (CheckRules(workingArray, workingPosition) == True): # if x satisfies all rules
+			potentialsArray.append(x)
 		logging.debug("workingArray: %r", workingArray)
-		# print("----------")
-	return temporaryPotentials
+	return potentialsArray
 
 # first round, calculating first position
 calcPosition = 0 # what position are we generating? need to keep track of this for general
@@ -92,12 +84,12 @@ for x in potentials:
 	potentials = CalculatePotentials(workingArray, workingPosition)
 	print("calculating for {}, potentials: {}".format(x, potentials))
 
-# need to loop all and tree this off 
+# need to loop all and tree this off - implement a node tree?
 # for x in potentials
 # CalculatePotentials(x)
 
 print("----------")
 print("calcPosition: ", calcPosition)
 # print("working array: ", workingArray)
-# print("temp potentials: ", temporaryPotentials)
+print("potentials: ", potentials)
 
