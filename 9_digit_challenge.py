@@ -72,22 +72,30 @@ calcPosition = 0 # what position are we generating? need to keep track of this f
 workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
 workingPosition = 0 # keep track of our position in the workingArray with this int
 
-#nested list
-
 potentials = CalculatePotentials(workingArray, workingPosition)
 print("potentials 1: ", potentials)
 print("----------")
 
 # second position
-nestedList = []
+levelTwo = []
 for x in potentials:
 	workingArray[calcPosition] = x # set position 0 to first potential
 	workingPosition = 1
-	potentials = CalculatePotentials(workingArray, workingPosition)
-	nestedList.append(potentials)
+	levelTwo.append(CalculatePotentials(workingArray, workingPosition))
 	# print("calculating for {}, potentials: {}".format(x, potentials))
 	
-print("nestedList potentials 2: ", nestedList)
+print("levelTwo potentials: ", levelTwo)
+
+# third position
+levelThree = []
+for x in levelTwo[0]:
+	y = levelTwo[0].index(x)
+	workingArray[calcPosition] = potentials[0]
+	workingArray[calcPosition + 1] = levelTwo[0][y]
+	workingPosition = 2
+	levelThree.append(CalculatePotentials(workingArray, workingPosition))
+
+print("levelThree potentials: ", levelThree)
 
 # need to loop all and tree this off - implement a node tree?
 # for x in potentials
@@ -96,5 +104,5 @@ print("nestedList potentials 2: ", nestedList)
 print("----------")
 print("calcPosition: ", calcPosition)
 # print("working array: ", workingArray)
-print("nestedList[2][0] ", nestedList[2][0])
+# print("nestedList[2][0] ", nestedList[2][0])
 
