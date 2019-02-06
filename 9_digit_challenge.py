@@ -88,12 +88,17 @@ print("levelTwo potentials: ", levelTwo)
 
 # third position
 levelThree = []
-for x in levelTwo[0]:
-	y = levelTwo[0].index(x)
-	workingArray[calcPosition] = potentials[0]
-	workingArray[calcPosition + 1] = levelTwo[0][y]
-	workingPosition = 2
-	levelThree.append(CalculatePotentials(workingArray, workingPosition))
+for x in levelTwo: # for each array in levelTwo
+	for y in x:    # for each value y in the array x
+		z = x.index(y) # return the index of each value and store in z
+		w = levelTwo.index(x) # index relates to which potentials in 1 we're referring to, i.e. 0 = 3, 1 = 4
+		print(y, z, w)
+		#i = 0
+		workingArray[calcPosition] = potentials[w] # start workingArray[0] with first in potentials
+		workingArray[calcPosition + 1] = levelTwo[w][z] # set the 2nd digit
+		workingPosition = 2
+		levelThree.append(CalculatePotentials(workingArray, workingPosition))
+
 
 print("levelThree potentials: ", levelThree)
 
