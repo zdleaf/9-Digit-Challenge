@@ -78,15 +78,22 @@ print("----------")
 
 # second position
 levelTwo = []
+
 for x in potentials:
 	workingArray[calcPosition] = x # set position 0 to first potential
 	workingPosition = 1
 	levelTwo.append(CalculatePotentials(workingArray, workingPosition))
 	# print("calculating for {}, potentials: {}".format(x, potentials))
 	
-print("levelTwo potentials: ", levelTwo)
-
 runningList = []
+for index, value in enumerate(potentials):
+	for y in levelTwo[index]: # for each array in levelTwo
+		runningList.append(int(str(value) + str(y)))
+
+print("levelTwo potentials: ", levelTwo)
+print("runningList: ", runningList)	
+
+""" runningList = []
 for x in levelTwo: # for each array in levelTwo
 	for y in x:    # for each value y in the array x
 		z = x.index(y) # return the index of each value and store in z
@@ -94,14 +101,14 @@ for x in levelTwo: # for each array in levelTwo
 		# print(y, z, w)
 		runningList.append(int(str(potentials[w]) + str(levelTwo[w][z])))
 
-print("runningList: ", runningList)		
+print("runningList: ", runningList)	
 
 # third position
 levelThree = []
 for x in levelTwo: # for each array in levelTwo
 	for y in x:    # for each value y in the array x
 		z = x.index(y) # return the index of each value and store in z
-		w = levelTwo.index(x) # index relates to which potentials in 1 we're referring to, i.e. 0 = 3, 1 = 4
+		w = levelTwo.index(x) # index relates to which potentials in 1 we're referring to, i.e. 0 = 3, 1 = 4 (INDEX ONLY RETURNS FIRST FOUND, NOT APPROPRIATE)
 		# print(y, z, w)
 		#i = 0
 		workingArray[calcPosition] = potentials[w] # start workingArray[0] with first in potentials
@@ -109,15 +116,10 @@ for x in levelTwo: # for each array in levelTwo
 		workingPosition = 2
 		levelThree.append(CalculatePotentials(workingArray, workingPosition))
 
+print("levelThree potentials: ", levelThree) """
 
-print("levelThree potentials: ", levelThree)
 
-# need to loop all and tree this off - implement a node tree?
-# for x in potentials
-# CalculatePotentials(x)
 
 print("----------")
-print("calcPosition: ", calcPosition)
-# print("working array: ", workingArray)
-# print("nestedList[2][0] ", nestedList[2][0])
+# print("calcPosition: ", calcPosition)
 
