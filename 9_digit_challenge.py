@@ -93,12 +93,27 @@ for x in levelOne:
 	
 runningList = CreateRunningList(levelOne, levelTwo)
 
+levelThree = []
+for x in runningList:
+	# runningList to workingArray function?
+	split = [int(d) for d in str(x)]
+	# logging.info("split: %r", split)
+	for index, value in enumerate(split):
+		workingArray[index] = value
+	# logging.info("wA: %r", workingArray)	
+	workingPosition = 2
+	levelThree.append(CalculatePotentials(workingArray, workingPosition))
+
+runningList2 = CreateRunningList(runningList, levelThree)
+
 # iterate through the running list putting it into workingArrays and get 3rd potentials?
 # function to generate new possibilities from running list
 # function to generate running list from previous list, and new possibilities
 
 print("levelTwo potentials: ", levelTwo)
 print("runningList: ", runningList)	
+print("levelThree potentials: ", levelThree)
+print("runningList2: ", runningList2)	
 
 """ runningList = []
 for x in levelTwo: # for each array in levelTwo
