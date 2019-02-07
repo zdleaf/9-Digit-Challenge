@@ -68,7 +68,7 @@ def CalculatePotentials(workingArray, workingPosition):
 	return potentialsArray
 
 # merge an old runningList with a list of new potentials
-def CreateRunningList(runningList, newPotentials):
+def MergeNewPotentials(runningList, newPotentials):
 	newList = []
 	for index, value in enumerate(runningList):
 		for y in newPotentials[index]: # index in runningList and newPotentials correspond, i.e. newPotentials[1] is possibilities for runningList[1] etc.
@@ -83,46 +83,49 @@ def CreateWorkingArray(intValue):
 		workingArray[index] = value
 	return workingArray
 
-# first round, calculating first position
 workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
-levelOne = CalculatePotentials(workingArray, 0)
-print("levelOne: ", levelOne)
+
+runningList = CalculatePotentials(workingArray, 0)
+print("runningList: ", runningList)
 print("----------")
 
 # second position
-levelTwo = []
-for x in levelOne:
-	workingArray[0] = x # set position 0 to first potential
-	levelTwo.append(CalculatePotentials(workingArray, 1))
-	# print("calculating for {}, potentials: {}".format(x, potentials))
-	
-runningList = CreateRunningList(levelOne, levelTwo)
 
-levelThree = []
+for z in range(1,4):
+	potentialValues = [] # clear values each loop
+	for x in runningList:
+		workingArray = CreateWorkingArray(x)
+		potentialValues.append(CalculatePotentials(workingArray, z))
+
+	runningList = MergeNewPotentials(runningList, potentialValues)
+
+	logging.info("potentialValues (%r): %r", len(potentialValues), potentialValues)
+	logging.info("runningList (%r): %r", len(runningList), runningList)
+	print("----------")
+
+
+""" levelThree = []
 for x in runningList: # for each value in runningList
 	workingArray = CreateWorkingArray(x)	
 	levelThree.append(CalculatePotentials(workingArray, 2))
 
-runningList2 = CreateRunningList(runningList, levelThree)
+runningList2 = MergeNewPotentials(runningList, levelThree)
+
+print("levelThree potentials: ", levelThree)
+print("runningList2: ", runningList2)	
+print("----------")
 
 levelFour = []
 for x in runningList2:
 	workingArray = CreateWorkingArray(x)
 	levelFour.append(CalculatePotentials(workingArray, 3))
 
-runningList3 = CreateRunningList(runningList2, levelFour)
+runningList3 = MergeNewPotentials(runningList2, levelFour)
 
-# iterate through the running list putting it into workingArrays and get 3rd potentials?
-# function to generate new possibilities from running list
-# function to generate running list from previous list, and new possibilities
-
-print("levelTwo potentials: ", levelTwo)
-print("runningList: ", runningList)	
-print("levelThree potentials: ", levelThree)
-print("runningList2: ", runningList2)	
 print("levelFour potentials: ", levelFour)
 print("runningList3: ", runningList3)	
 print("levelFour lengths: ", len(levelFour), len(runningList2))
+print("----------") """
 
-print("----------")
+
 
