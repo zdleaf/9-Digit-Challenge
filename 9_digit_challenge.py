@@ -67,6 +67,7 @@ def CalculatePotentials(workingArray, workingPosition):
 		logging.debug("workingArray: %r", workingArray)
 	return potentialsArray
 
+# merge an old runningList with a list of new potentials
 def CreateRunningList(runningList, newPotentials):
 	newList = []
 	for index, value in enumerate(runningList):
@@ -74,37 +75,42 @@ def CreateRunningList(runningList, newPotentials):
 			newList.append(int(str(value) + str(y)))
 	return newList
 
-# first round, calculating first position
-calcPosition = 0 # what position are we generating? need to keep track of this for general
-workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
-workingPosition = 0 # keep track of our position in the workingArray with this int
+# we need to pass CalculatePotentials() a 9 digit array, create this from a given number e.g. 361 --> [3, 6, 1, 0, 0, 0, 0, 0, 0]
+def CreateWorkingArray(intValue):
+	split = [int(d) for d in str(intValue)] # split an X digit number into an array with individual digits
+	workingArray = np.zeros(shape=[9], dtype=int)
+	for index, value in enumerate(split):
+		workingArray[index] = value
+	return workingArray
 
-levelOne = CalculatePotentials(workingArray, workingPosition)
+# first round, calculating first position
+workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
+levelOne = CalculatePotentials(workingArray, 0)
 print("levelOne: ", levelOne)
 print("----------")
 
 # second position
 levelTwo = []
 for x in levelOne:
-	workingArray[calcPosition] = x # set position 0 to first potential
-	workingPosition = 1
-	levelTwo.append(CalculatePotentials(workingArray, workingPosition))
+	workingArray[0] = x # set position 0 to first potential
+	levelTwo.append(CalculatePotentials(workingArray, 1))
 	# print("calculating for {}, potentials: {}".format(x, potentials))
 	
 runningList = CreateRunningList(levelOne, levelTwo)
 
 levelThree = []
-for x in runningList:
-	# runningList to workingArray function?
-	split = [int(d) for d in str(x)]
-	# logging.info("split: %r", split)
-	for index, value in enumerate(split):
-		workingArray[index] = value
-	# logging.info("wA: %r", workingArray)	
-	workingPosition = 2
-	levelThree.append(CalculatePotentials(workingArray, workingPosition))
+for x in runningList: # for each value in runningList
+	workingArray = CreateWorkingArray(x)	
+	levelThree.append(CalculatePotentials(workingArray, 2))
 
 runningList2 = CreateRunningList(runningList, levelThree)
+
+levelFour = []
+for x in runningList2:
+	workingArray = CreateWorkingArray(x)
+	levelFour.append(CalculatePotentials(workingArray, 3))
+
+runningList3 = CreateRunningList(runningList2, levelFour)
 
 # iterate through the running list putting it into workingArrays and get 3rd potentials?
 # function to generate new possibilities from running list
@@ -114,6 +120,9 @@ print("levelTwo potentials: ", levelTwo)
 print("runningList: ", runningList)	
 print("levelThree potentials: ", levelThree)
 print("runningList2: ", runningList2)	
+print("levelFour potentials: ", levelFour)
+print("runningList3: ", runningList3)	
+print("levelFour lengths: ", len(levelFour), len(runningList2))
 
 print("----------")
 
