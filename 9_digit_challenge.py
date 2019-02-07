@@ -67,28 +67,35 @@ def CalculatePotentials(workingArray, workingPosition):
 		logging.debug("workingArray: %r", workingArray)
 	return potentialsArray
 
+def CreateRunningList(runningList, newPotentials):
+	newList = []
+	for index, value in enumerate(runningList):
+		for y in newPotentials[index]: # index in runningList and newPotentials correspond, i.e. newPotentials[1] is possibilities for runningList[1] etc.
+			newList.append(int(str(value) + str(y)))
+	return newList
+
 # first round, calculating first position
 calcPosition = 0 # what position are we generating? need to keep track of this for general
 workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
 workingPosition = 0 # keep track of our position in the workingArray with this int
 
-potentials = CalculatePotentials(workingArray, workingPosition)
-print("potentials 1: ", potentials)
+levelOne = CalculatePotentials(workingArray, workingPosition)
+print("levelOne: ", levelOne)
 print("----------")
 
 # second position
 levelTwo = []
-
-for x in potentials:
+for x in levelOne:
 	workingArray[calcPosition] = x # set position 0 to first potential
 	workingPosition = 1
 	levelTwo.append(CalculatePotentials(workingArray, workingPosition))
 	# print("calculating for {}, potentials: {}".format(x, potentials))
 	
-runningList = []
-for index, value in enumerate(potentials):
-	for y in levelTwo[index]: # for each array in levelTwo
-		runningList.append(int(str(value) + str(y)))
+runningList = CreateRunningList(levelOne, levelTwo)
+
+# iterate through the running list putting it into workingArrays and get 3rd potentials?
+# function to generate new possibilities from running list
+# function to generate running list from previous list, and new possibilities
 
 print("levelTwo potentials: ", levelTwo)
 print("runningList: ", runningList)	
@@ -118,8 +125,5 @@ for x in levelTwo: # for each array in levelTwo
 
 print("levelThree potentials: ", levelThree) """
 
-
-
 print("----------")
-# print("calcPosition: ", calcPosition)
 
