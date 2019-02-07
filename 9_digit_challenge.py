@@ -83,49 +83,17 @@ def CreateWorkingArray(intValue):
 		workingArray[index] = value
 	return workingArray
 
-workingArray = np.zeros(shape=[9], dtype=int) # initialise a 9 digit array to use as our working array when checking rules
+runningList = [0]
 
-runningList = CalculatePotentials(workingArray, 0)
-print("runningList: ", runningList)
-print("----------")
-
-# second position
-
-for z in range(1,4):
+for position in range(0,9):
 	potentialValues = [] # clear values each loop
 	for x in runningList:
-		workingArray = CreateWorkingArray(x)
-		potentialValues.append(CalculatePotentials(workingArray, z))
+		workingArray = CreateWorkingArray(x) # build a 9 digit array from x
+		potentialValues.append(CalculatePotentials(workingArray, position)) # calculate the next potential values in given position and append to an array
 
-	runningList = MergeNewPotentials(runningList, potentialValues)
+	runningList = MergeNewPotentials(runningList, potentialValues) # merge the values into a new list
 
 	logging.info("potentialValues (%r): %r", len(potentialValues), potentialValues)
 	logging.info("runningList (%r): %r", len(runningList), runningList)
-	print("----------")
 
-
-""" levelThree = []
-for x in runningList: # for each value in runningList
-	workingArray = CreateWorkingArray(x)	
-	levelThree.append(CalculatePotentials(workingArray, 2))
-
-runningList2 = MergeNewPotentials(runningList, levelThree)
-
-print("levelThree potentials: ", levelThree)
-print("runningList2: ", runningList2)	
-print("----------")
-
-levelFour = []
-for x in runningList2:
-	workingArray = CreateWorkingArray(x)
-	levelFour.append(CalculatePotentials(workingArray, 3))
-
-runningList3 = MergeNewPotentials(runningList2, levelFour)
-
-print("levelFour potentials: ", levelFour)
-print("runningList3: ", runningList3)	
-print("levelFour lengths: ", len(levelFour), len(runningList2))
-print("----------") """
-
-
-
+print(runningList)
