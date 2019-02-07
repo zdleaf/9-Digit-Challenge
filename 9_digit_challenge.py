@@ -2,7 +2,7 @@
 # Find all 9 digit numbers that satisfy the following rules
 # rule 1: Each digit cannot equal it's position plus or minus 1 (array[0] is position 1)
 # rule 2: Each digit cannot be repeated i.e. must contain 1-9
-# rule 3: Digits next to each other must have a difference of >= 2 eg. 1 and 4, not 1 and 3
+# rule 3: Digits next to each other must have a difference of >= 2 e.g. 1 and 4, not 1 and 3
 
 import numpy as np
 import logging
@@ -17,7 +17,7 @@ def CheckRule1(workingArray, workingPosition):
 
 def CheckRule2(workingArray):
 	# for each x in workingArray, keep a count of how many times the value appears, it it appears twice then rule 2 has failed
-	# alternative method, take workingPos as argument and compare rest of elements to workingPos value e.g. until workingPos = 0, keep workingPos - 1 and compare
+	# alternative/potentially faster method, take workingPos as argument and compare elements that come before
 	countOfValues = np.zeros(shape=[9], dtype=int)
 	for x in workingArray:
 		if (x != 0):
@@ -30,7 +30,8 @@ def CheckRule2(workingArray):
 		return True
 
 def CheckRule3(workingArray, workingPosition):
-	# with workingPos, check pos-1 for difference of more than 2. value of pos+1 will not be filled yet so no check required
+	# with workingPos, check pos-1 for difference of more than 2
+	# since we're building numbers left to right one digit at a time, value of pos+1 will not be filled yet so no check required
 	if (workingPosition != 0):
 		value1 = workingArray[workingPosition - 1]
 		value2 = workingArray[workingPosition]
@@ -44,7 +45,7 @@ def CheckRule3(workingArray, workingPosition):
 		return True
 
 def CheckRules(workingArray, workingPosition):
-	# Check we satisfied each rule
+	# check we satisfied each rule
 	resultRule1 = CheckRule1(workingArray, workingPosition)
 	resultRule2 = CheckRule2(workingArray)
 	resultRule3 = CheckRule3(workingArray, workingPosition)
@@ -67,17 +68,17 @@ def CalculatePotentials(workingArray, workingPosition):
 		logging.debug("workingArray: %r", workingArray)
 	return potentialsArray
 
-# merge an old runningList with a list of new potentials
 def MergeNewPotentials(runningList, newPotentials):
+	# merge an old runningList with a list of new potentials
 	newList = []
 	for index, value in enumerate(runningList):
-		for y in newPotentials[index]: # index in runningList and newPotentials correspond, i.e. newPotentials[1] is possibilities for runningList[1] etc.
+		for y in newPotentials[index]: # index in runningList and newPotentials correspond, e.g. newPotentials[1] is possibilities for runningList[1] etc.
 			newList.append(int(str(value) + str(y)))
 	return newList
 
-# we need to pass CalculatePotentials() a 9 digit array, create this from a given number e.g. 361 --> [3, 6, 1, 0, 0, 0, 0, 0, 0]
 def CreateWorkingArray(intValue):
-	split = [int(d) for d in str(intValue)] # split an X digit number into an array with individual digits
+	# we need to pass CalculatePotentials() a 9 digit array, create this from a given number e.g. 361 --> [3, 6, 1, 0, 0, 0, 0, 0, 0]
+	split = [int(d) for d in str(intValue)] 
 	workingArray = np.zeros(shape=[9], dtype=int)
 	for index, value in enumerate(split):
 		workingArray[index] = value
@@ -91,7 +92,7 @@ for position in range(0,9):
 		workingArray = CreateWorkingArray(x) # build a 9 digit array from x
 		potentialValues.append(CalculatePotentials(workingArray, position)) # calculate the next potential values in given position and append to an array
 
-	runningList = MergeNewPotentials(runningList, potentialValues) # merge the values into a new list
+	runningList = MergeNewPotentials(runningList, potentialValues) # merge the values into a new list ready for next loop
 
 	logging.info("potentialValues (%r): %r", len(potentialValues), potentialValues)
 	logging.info("runningList (%r): %r", len(runningList), runningList)
