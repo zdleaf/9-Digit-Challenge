@@ -2,9 +2,10 @@
 # 9 Digit Challenge
 
 The 9 Digit Challenge is to find all numbers that satisfy the following rules:
-**rule 1: Each digit cannot equal it's position plus or minus 1
-rule 2: Each digit cannot be repeated i.e. must contain integers 1-9 
-rule 3: Digits next to each other must have a difference of >= 3 e.g. 1 and 4, not 1 and 3**
+
+ 1. **Each digit cannot equal it's position plus or minus 1**
+ 2. **Each digit cannot be repeated i.e. must contain integers 1-9**
+ 3. **Digits next to each other must have a difference of >= 3 e.g. 1 and 4, not 1 and 3**
 
 For example, 385174926.
 
