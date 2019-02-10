@@ -2,7 +2,7 @@
 # Find all 9 digit numbers that satisfy the following rules
 # rule 1: Each digit cannot equal it's position plus or minus 1 (array[0] is position 1)
 # rule 2: Each digit cannot be repeated i.e. must contain 1-9
-# rule 3: Digits next to each other must have a difference of >= 2 e.g. 1 and 4, not 1 and 3
+# rule 3: Digits next to each other must have a difference of >= 3 e.g. 1 and 4, not 1 and 3
 
 import numpy as np
 import logging
@@ -10,6 +10,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def CheckRule1(workingArray, workingPosition):
+	# check value doesn't equal it's position +1 or -1
 	if (workingArray[workingPosition] == workingPosition + 1 or workingArray[workingPosition] == workingPosition + 2 or workingArray[workingPosition] == workingPosition):
 		return False
 	else:
