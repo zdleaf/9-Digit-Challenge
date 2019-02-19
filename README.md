@@ -1,9 +1,9 @@
 
 # 9 Digit Challenge
 
-The 9 Digit Challenge is to find all numbers that satisfy the following rules:
+The 9 Digit Challenge is to find all 9 digit numbers that satisfy the following rules:
 
- 1. **Each digit cannot equal it's position plus or minus 1**
+ 1. **Each digit cannot equal it's position plus or minus 1 (position is 1-9, i.e. not 0 indexed) ** 
  2. **Each digit cannot be repeated i.e. must contain integers 1-9**
  3. **Digits next to each other must have a difference of >= 3 e.g. 1 and 4, not 1 and 3**
 
