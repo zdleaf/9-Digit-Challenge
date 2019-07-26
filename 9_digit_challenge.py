@@ -7,7 +7,8 @@
 import numpy as np
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# uncomment to show logging/calculation
 
 def CheckRule1(workingArray, workingPosition):
 	# check value doesn't equal it's position +1 or -1
