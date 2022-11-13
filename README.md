@@ -3,14 +3,16 @@
 
 The 9 Digit Challenge is to find all 9 digit numbers that satisfy the following rules:
 
- 1. **Each digit cannot equal it's position plus or minus 1 (position is 1-9, i.e. not 0 indexed)** 
- 2. **Each digit cannot be repeated i.e. must contain integers 1-9**
- 3. **Digits next to each other must have a difference of >= 3 e.g. 1 and 4, not 1 and 3**
-
+ 1. **All integers 1-9 must be used i.e. no repeats**
+ 2. **Adjacent numbers must have a difference of >= 3**
+    - ex. 1 and 4 next to each other is okay, 1 and 3 is not
+ 3. **Each digit cannot equal it's position plus or minus 1, where position is considered 1-9, not 0 indexed**
+    - ex. first digit cannot be 1 or 2, second digit cannot be 1, 2 or 3
+ 
 For example, 385174926.
 
 
-This solution builds every possibility, starting from the left hand side. We start with a 9 digit array of zeros [0, 0, 0, 0, 0, 0, 0, 0, 0] and start calculating at array[0]. 
+This python solution builds every possibility, starting from the left hand side. We start with a 9 digit array of zeros [0, 0, 0, 0, 0, 0, 0, 0, 0] and start calculating at array[0]. 
 
 We test at the first position where x is 1-9: [x, 0, 0, 0, 0, 0, 0, 0, 0]. For example, [1, 0, 0, 0, 0, 0, 0, 0, 0] which fails under rule 1.
 
